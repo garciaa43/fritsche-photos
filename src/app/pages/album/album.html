@@ -1,0 +1,16 @@
+<section class="secao album">
+  <a class="voltar" routerLink="/fotos">← Todos os trabalhos</a>
+  @if (album(); as projeto) {
+    <header><p class="eyebrow">{{ projeto.categoria }}</p><h1>{{ projeto.titulo }}</h1>
+      <div class="detalhes"><p class="texto">{{ projeto.descricao }}</p>
+        <dl><div><dt>Data</dt><dd>{{ data(projeto.data) }}</dd></div><div><dt>Local</dt><dd>{{ projeto.local }}</dd></div></dl>
+      </div>
+    </header>
+    <div class="mosaico">
+      @for (foto of projeto.fotos; track foto.src; let i = $index) {
+        <button (click)="visor.abrir(projeto.fotos, i)" [attr.aria-label]="'Ampliar ' + foto.alt"><img [src]="foto.src" [alt]="foto.alt" loading="lazy" decoding="async" /></button>
+      }
+    </div>
+  } @else { <h1>Álbum não encontrado.</h1><p class="texto">Volte à galeria para explorar os trabalhos disponíveis.</p> }
+</section>
+<app-lightbox #visor />

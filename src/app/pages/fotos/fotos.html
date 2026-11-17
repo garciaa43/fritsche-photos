@@ -1,0 +1,82 @@
+<section class="secao portfolio" aria-labelledby="titulo-fotos">
+  <a class="voltar" routerLink="/">← Início</a>
+
+  <div class="cabecalho-secao">
+    <h1 id="titulo-fotos">Trabalhos</h1>
+
+    <p class="texto resumo">
+      Pessoas, encontros e histórias.<br />
+      Explore os projetos de Fritsche Photos.
+    </p>
+  </div>
+
+  <div
+    class="filtros"
+    role="group"
+    aria-label="Filtrar fotografias por projeto"
+  >
+    @for (item of categorias; track item) {
+      <button
+        type="button"
+        (click)="selecionar(item)"
+        [class.ativo]="categoria() === item"
+        [attr.aria-pressed]="categoria() === item"
+      >
+        {{ item }}
+      </button>
+    }
+  </div>
+
+  @if (categoria() !== 'Todos') {
+    <div class="informacoes-projeto">
+      @for (album of albunsFiltrados(); track album.id) {
+        <article class="descricao-projeto">
+          <div>
+            <h2>{{ album.titulo }}</h2>
+            <p class="texto">{{ album.descricao }}</p>
+          </div>
+
+          <dl>
+            <div>
+              <dt>Data</dt>
+              <dd>{{ formatarData(album.data) }}</dd>
+            </div>
+
+            <div>
+              <dt>Local</dt>
+              <dd>{{ album.local }}</dd>
+            </div>
+          </dl>
+        </article>
+      }
+    </div>
+  }
+
+  <p class="quantidade" role="status">
+    {{ fotosVisiveis().length }} fotografias
+  </p>
+
+  <div class="mosaico">
+    @for (foto of fotosVisiveis(); track foto.src; let i = $index) {
+      <button
+        type="button"
+        class="foto"
+        (click)="visor.abrir(fotosVisiveis(), i)"
+        [attr.aria-label]="'Ampliar ' + foto.alt"
+      >
+        <img
+          [src]="foto.src"
+          [alt]="foto.alt"
+          loading="lazy"
+          decoding="async"
+        />
+      </button>
+    } @empty {
+      <p class="texto">
+        Nenhuma fotografia disponível neste projeto.
+      </p>
+    }
+  </div>
+</section>
+
+<app-lightbox #visor />

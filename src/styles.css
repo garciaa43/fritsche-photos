@@ -1,3 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
-
-@import 'tailwindcss';
+@import "tailwindcss";
+html { color-scheme:dark; scroll-behavior:smooth; }
+body { margin:0; background:#000; color:#f5f5f5; font-family:Arial,Helvetica,sans-serif; }
+* { box-sizing:border-box; }
+button,a { -webkit-tap-highlight-color:transparent; }
+a { color:inherit; text-decoration:none; }
+button { font:inherit; }
+a:focus-visible,button:focus-visible { outline:2px solid white; outline-offset:6px; }
+[id] { scroll-margin-top:24px; }
+.secao { width:min(1600px,100%); margin:auto; padding:110px max(6vw,24px); }
+.eyebrow { font-size:12px; text-transform:uppercase; letter-spacing:.15em; color:#888; margin-bottom:24px; }
+h2 { font-size:clamp(36px,5vw,78px); line-height:1.08; font-weight:400; letter-spacing:-.045em; }
+.texto { color:#aaa; line-height:1.8; font-size:16px; margin-top:24px; }
+.cabecalho-secao { display:flex; justify-content:space-between; align-items:end; gap:32px; margin-bottom:40px; }
+.link { display:inline-block; padding:10px 0; border-bottom:1px solid #777; font-size:14px; white-space:nowrap; }
+.grade { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:38px 24px; }
+.imagem { aspect-ratio:3/4; overflow:hidden; background:#151515; }
+.imagem img { width:100%; height:100%; object-fit:cover; transition:transform 800ms cubic-bezier(.22,1,.36,1); }
+.legenda { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:16px; }
+.legenda h2,.legenda h3 { font-size:18px; letter-spacing:-.02em; font-weight:400; }
+.meta,.voltar { font-size:12px; color:#999; }
+.meta { margin-top:8px; }
+@media(hover:hover) { .cartao:hover img { transform:scale(1.045); } .link:hover { border-color:white; } }
+@media(max-width:900px) { .grade { grid-template-columns:repeat(2,minmax(0,1fr)); } .cabecalho-secao { align-items:start; flex-direction:column; } }
+@media(max-width:600px) { .secao { padding:72px 24px; } .grade { grid-template-columns:1fr; } }
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .imagem img { transition:none; } }

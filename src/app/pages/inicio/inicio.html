@@ -1,0 +1,58 @@
+<section class="hero" aria-labelledby="titulo-inicio">
+  @for (faixa of faixas; track $index; let i = $index) {
+    @if (i === 1) {
+      <div class="intro">
+        <h1 id="titulo-inicio">Fritsche Photos</h1>
+        <p>Seu jeito. Sua história. Um novo olhar.</p>
+        <button class="pausa" (click)="pausado.set(!pausado())" [attr.aria-pressed]="pausado()">{{ pausado() ? 'Retomar movimento' : 'Pausar movimento' }}</button>
+      </div>
+    }
+    <div class="faixa">
+      <div class="trilho" [class.reverso]="i === 1" [class.pausado]="pausado()">
+        @for (copia of [0,1]; track copia) {
+          <div class="grupo" [attr.aria-hidden]="copia === 1 ? 'true' : null" [attr.inert]="copia === 1 ? '' : null">
+            @for (nome of faixa; track nome) {
+              <button class="foto-hero" (click)="visor.abrir(fotosHero(), indiceFoto(nome))" [attr.tabindex]="copia === 1 ? -1 : 0" [attr.aria-label]="'Ampliar fotografia ' + nome">
+                <img [src]="imagem(nome)" alt="" decoding="async" />
+              </button>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
+  <a class="descer" href="#sobre">Conheça o olhar por trás das fotos ↓</a>
+</section>
+<section id="sobre" class="secao sobre" aria-labelledby="titulo-sobre">
+  <div class="retrato">
+    @if (sobre.retrato) { <img [src]="sobre.retrato" alt="Retrato de Fritz, fotógrafo" loading="lazy" /> }
+    @else { <span>Retrato do fotógrafo<br><small>Em breve</small></span> }
+  </div>
+  <div>
+    <p class="eyebrow">01 / Sobre</p>
+    <h2 id="titulo-sobre">{{ sobre.titulo }}</h2>
+    <p class="texto">{{ sobre.texto }}</p>
+    <p class="texto">{{ sobre.historia }}</p>
+  </div>
+</section>
+<section id="trabalhos" class="secao" aria-labelledby="titulo-trabalhos">
+  <div class="cabecalho-secao"><div><p class="eyebrow">02 / Seleção</p><h2 id="titulo-trabalhos">Histórias em imagens.</h2></div><a class="link" routerLink="/fotos">Ver todos os trabalhos ↗</a></div>
+  <div class="grade">
+    @for (album of destaques; track album.id) {
+      <a class="cartao" [routerLink]="['/fotos', album.slug]">
+        <div class="imagem"><img [src]="album.capa" [alt]="album.titulo" loading="lazy" decoding="async" /></div>
+        <div class="legenda"><h3>{{ album.titulo }}</h3><span>↗</span></div>
+      </a>
+    } @empty { <p class="texto">Os primeiros trabalhos serão exibidos aqui.</p> }
+  </div>
+</section>
+<section id="contato" class="secao contato" aria-labelledby="titulo-contato">
+  <p class="eyebrow">03 / Contato</p><h2 id="titulo-contato">Vamos contar<br>uma nova história?</h2>
+  <div class="contatos">
+    @for (contato of contatos; track contato.nome) { <a class="link" [href]="contato.url">{{ contato.nome }} ↗</a> }
+    @empty { <p class="texto">Os canais de contato serão disponibilizados em breve.</p> }
+  </div>
+</section>
+<footer class="rodape"><a routerLink="/">Fritsche Photos</a><span>Fotografia e histórias.</span></footer>
+
+<app-lightbox #visor />

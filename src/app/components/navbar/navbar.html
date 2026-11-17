@@ -1,0 +1,9 @@
+<header>
+  <nav aria-label="Navegação principal">
+    @for (item of itens; track item.id) {
+      <a routerLink="/" [fragment]="item.id" [class.ativo]="ativo(item.id)" [attr.aria-current]="ativo(item.id) ? 'location' : null">
+        <span class="janela"><span class="original">{{ item.nome }}</span><span class="copia" aria-hidden="true">{{ item.nome }}</span></span>
+      </a>
+    }
+  </nav>
+</header>
