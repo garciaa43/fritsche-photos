@@ -1,26 +1,63 @@
 @import "tailwindcss";
-html { color-scheme:dark; scroll-behavior:smooth; }
-body { margin:0; background:#000; color:#f5f5f5; font-family:Arial,Helvetica,sans-serif; }
+
+/* ============================================================
+   Paletas de cores — troque data-paleta no <html> para testar.
+   Depois de escolher, basta deixar só a paleta escolhida em :root.
+   ============================================================ */
+:root,
+:root[data-paleta="original"] {
+  --fundo:#000000; --superficie:#121212; --borda:#2a2a2a; --borda-forte:#777777;
+  --texto:#f5f5f5; --texto-suave:#b5b5b5; --texto-mudo:#8f8f8f; --destaque:#ffffff;
+  color-scheme:dark;
+}
+:root[data-paleta="grafite-ambar"] {
+  --fundo:#0e0f12; --superficie:#17191e; --borda:#2a2d34; --borda-forte:#5a5f69;
+  --texto:#f2f0ec; --texto-suave:#b9bcc2; --texto-mudo:#8a8f98; --destaque:#e8a33d;
+  color-scheme:dark;
+}
+:root[data-paleta="noite-urbana"] {
+  --fundo:#0b0b0d; --superficie:#151518; --borda:#26262b; --borda-forte:#55555d;
+  --texto:#ffffff; --texto-suave:#bdbdc4; --texto-mudo:#9a9aa2; --destaque:#d7ff3a;
+  color-scheme:dark;
+}
+:root[data-paleta="azul-profundo"] {
+  --fundo:#0b1220; --superficie:#121b2e; --borda:#22304a; --borda-forte:#4a5b7a;
+  --texto:#e9eef6; --texto-suave:#b4c0d3; --texto-mudo:#8494ae; --destaque:#f2c14e;
+  color-scheme:dark;
+}
+:root[data-paleta="papel-tinta"] {
+  --fundo:#f4f1ea; --superficie:#eae5da; --borda:#d6d0c4; --borda-forte:#9a9488;
+  --texto:#161514; --texto-suave:#45423d; --texto-mudo:#6e6a62; --destaque:#c2412d;
+  color-scheme:light;
+}
+:root[data-paleta="carvao-verde"] {
+  --fundo:#101311; --superficie:#1a1f1b; --borda:#2b322d; --borda-forte:#56605a;
+  --texto:#eef1ec; --texto-suave:#b8c0b9; --texto-mudo:#8c968e; --destaque:#7fb069;
+  color-scheme:dark;
+}
+
+html { scroll-behavior:smooth; background:var(--fundo); transition:background-color 400ms ease; }
+body { margin:0; background:var(--fundo); color:var(--texto); font-family:Arial,Helvetica,sans-serif; transition:background-color 400ms ease,color 400ms ease; }
 * { box-sizing:border-box; }
 button,a { -webkit-tap-highlight-color:transparent; }
 a { color:inherit; text-decoration:none; }
 button { font:inherit; }
-a:focus-visible,button:focus-visible { outline:2px solid white; outline-offset:6px; }
+a:focus-visible,button:focus-visible { outline:2px solid var(--destaque); outline-offset:6px; }
 [id] { scroll-margin-top:24px; }
 .secao { width:min(1600px,100%); margin:auto; padding:110px max(6vw,24px); }
-.eyebrow { font-size:12px; text-transform:uppercase; letter-spacing:.15em; color:#888; margin-bottom:24px; }
+.eyebrow { font-size:12px; text-transform:uppercase; letter-spacing:.15em; color:var(--texto-mudo); margin-bottom:24px; }
 h2 { font-size:clamp(36px,5vw,78px); line-height:1.08; font-weight:400; letter-spacing:-.045em; }
-.texto { color:#aaa; line-height:1.8; font-size:16px; margin-top:24px; }
+.texto { color:var(--texto-suave); line-height:1.8; font-size:16px; margin-top:24px; }
 .cabecalho-secao { display:flex; justify-content:space-between; align-items:end; gap:32px; margin-bottom:40px; }
-.link { display:inline-block; padding:10px 0; border-bottom:1px solid #777; font-size:14px; white-space:nowrap; }
+.link { display:inline-block; padding:10px 0; border-bottom:1px solid var(--borda-forte); font-size:14px; white-space:nowrap; }
 .grade { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:38px 24px; }
-.imagem { aspect-ratio:3/4; overflow:hidden; background:#151515; }
+.imagem { aspect-ratio:3/4; overflow:hidden; background:var(--superficie); }
 .imagem img { width:100%; height:100%; object-fit:cover; transition:transform 800ms cubic-bezier(.22,1,.36,1); }
 .legenda { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:16px; }
 .legenda h2,.legenda h3 { font-size:18px; letter-spacing:-.02em; font-weight:400; }
-.meta,.voltar { font-size:12px; color:#999; }
+.meta,.voltar { font-size:12px; color:var(--texto-mudo); }
 .meta { margin-top:8px; }
-@media(hover:hover) { .cartao:hover img { transform:scale(1.045); } .link:hover { border-color:white; } }
+@media(hover:hover) { .cartao:hover img { transform:scale(1.045); } .link:hover { border-color:var(--destaque); color:var(--destaque); } }
 @media(max-width:900px) { .grade { grid-template-columns:repeat(2,minmax(0,1fr)); } .cabecalho-secao { align-items:start; flex-direction:column; } }
 @media(max-width:600px) { .secao { padding:72px 24px; } .grade { grid-template-columns:1fr; } }
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .imagem img { transition:none; } }
