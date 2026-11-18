@@ -9,7 +9,7 @@
   <div class="veu" aria-hidden="true"></div>
 
   <div class="hero-texto">
-    <p class="hero-linha">Fotografia</p>
+    <p class="hero-linha">Fotografia &amp; Audiovisual</p>
     <h1 id="titulo-inicio">Fritsche <span>Photos</span></h1>
     <p class="hero-frase">{{ inicio.frase }}</p>
     <a class="botao" href="#trabalhos">Ver trabalhos</a>
@@ -61,7 +61,7 @@
 
 <section id="sobre" class="secao sobre" aria-labelledby="titulo-sobre">
   <div class="retrato" revelar>
-    @if (sobre.retrato) { <img [src]="sobre.retrato" alt="Retrato de Fritz, fotógrafo" loading="lazy" /> }
+    @if (sobre.retrato) { <img [src]="sobre.retrato" [alt]="'Retrato de ' + sobre.nome + ', fotógrafo'" loading="lazy" /> }
     @else { <span>Retrato do fotógrafo<br><small>Em breve</small></span> }
   </div>
   <div [revelar]="150">
@@ -89,6 +89,6 @@
     @empty { <p class="texto">Os canais de contato serão disponibilizados em breve.</p> }
   </div>
 </section>
-<footer class="rodape"><a routerLink="/">Fritsche Photos</a><span>Fotografia e histórias.</span></footer>
+<footer class="rodape"><a routerLink="/">Fritsche Photos</a><span>Fotografia e audiovisual.</span></footer>
 
 <app-lightbox #visor />
