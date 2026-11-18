@@ -16,8 +16,8 @@ import type { Foto } from '../../data/modelos';
     </dialog>`,
   styles: `
     dialog { position:fixed; inset:0; width:100%; height:100dvh; max-width:none; max-height:none;
-      margin:0; border:0; padding:64px 20px 72px; background:rgba(0,0,0,.96); color:white; }
-    dialog::backdrop { background:#000; } img { width:100%; height:100%; object-fit:contain; }
+      margin:0; border:0; padding:64px 20px 72px; background:color-mix(in srgb, var(--fundo) 96%, transparent); color:var(--texto); }
+    dialog::backdrop { background:var(--fundo); } img { width:100%; height:100%; object-fit:contain; }
     .fechar { position:absolute; top:18px; right:24px; padding:8px; }
     .controles { position:absolute; bottom:16px; left:0; width:100%; display:flex; align-items:center; justify-content:center; gap:24px; }
     .controles button { min-width:44px; min-height:44px; font-size:24px; }

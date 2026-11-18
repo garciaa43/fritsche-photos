@@ -1,26 +1,56 @@
 @import "tailwindcss";
-html { color-scheme:dark; scroll-behavior:smooth; }
-body { margin:0; background:#000; color:#f5f5f5; font-family:Arial,Helvetica,sans-serif; }
+
+/* ============================================================
+   Cores: seguem o modo do aparelho de quem visita.
+   Escuro -> Azul profundo · Claro -> Papel e tinta
+   ============================================================ */
+:root {
+  --fundo:#0b1220; --superficie:#121b2e; --borda:#22304a; --borda-forte:#4a5b7a;
+  --texto:#e9eef6; --texto-suave:#b4c0d3; --texto-mudo:#8494ae; --destaque:#f2c14e;
+  --fonte-titulo:'Titillium Web',Arial,sans-serif;
+  --fonte-texto:'Lato',Arial,Helvetica,sans-serif;
+  --suave:cubic-bezier(.22,1,.36,1);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:light) {
+  :root {
+    --fundo:#f4f1ea; --superficie:#eae5da; --borda:#d6d0c4; --borda-forte:#9a9488;
+    --texto:#161514; --texto-suave:#45423d; --texto-mudo:#6e6a62; --destaque:#c2412d;
+    color-scheme:light;
+  }
+}
+
+html { scroll-behavior:smooth; background:var(--fundo); transition:background-color 400ms ease; }
+body { margin:0; background:var(--fundo); color:var(--texto); font-family:var(--fonte-texto); transition:background-color 400ms ease,color 400ms ease; }
 * { box-sizing:border-box; }
 button,a { -webkit-tap-highlight-color:transparent; }
 a { color:inherit; text-decoration:none; }
 button { font:inherit; }
-a:focus-visible,button:focus-visible { outline:2px solid white; outline-offset:6px; }
-[id] { scroll-margin-top:24px; }
+a:focus-visible,button:focus-visible { outline:2px solid var(--destaque); outline-offset:6px; }
+[id] { scroll-margin-top:96px; }
+h1,h2,h3,.eyebrow,.link,button { font-family:var(--fonte-titulo); }
 .secao { width:min(1600px,100%); margin:auto; padding:110px max(6vw,24px); }
-.eyebrow { font-size:12px; text-transform:uppercase; letter-spacing:.15em; color:#888; margin-bottom:24px; }
-h2 { font-size:clamp(36px,5vw,78px); line-height:1.08; font-weight:400; letter-spacing:-.045em; }
-.texto { color:#aaa; line-height:1.8; font-size:16px; margin-top:24px; }
+.eyebrow { font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.25em; color:var(--texto-mudo); margin-bottom:24px; }
+h2 { font-size:clamp(36px,5vw,78px); line-height:1.08; font-weight:300; letter-spacing:-.02em; }
+.texto { color:var(--texto-suave); line-height:1.8; font-size:16px; margin-top:24px; }
 .cabecalho-secao { display:flex; justify-content:space-between; align-items:end; gap:32px; margin-bottom:40px; }
-.link { display:inline-block; padding:10px 0; border-bottom:1px solid #777; font-size:14px; white-space:nowrap; }
+.link { display:inline-block; text-transform:uppercase; letter-spacing:.14em; font-size:12px; font-weight:600; padding:10px 0; border-bottom:1px solid var(--borda-forte); white-space:nowrap; }
 .grade { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:38px 24px; }
-.imagem { aspect-ratio:3/4; overflow:hidden; background:#151515; }
+.imagem { aspect-ratio:3/4; overflow:hidden; background:var(--superficie); }
 .imagem img { width:100%; height:100%; object-fit:cover; transition:transform 800ms cubic-bezier(.22,1,.36,1); }
 .legenda { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:16px; }
 .legenda h2,.legenda h3 { font-size:18px; letter-spacing:-.02em; font-weight:400; }
-.meta,.voltar { font-size:12px; color:#999; }
+.meta,.voltar { font-size:12px; color:var(--texto-mudo); }
 .meta { margin-top:8px; }
-@media(hover:hover) { .cartao:hover img { transform:scale(1.045); } .link:hover { border-color:white; } }
+@media(hover:hover) { .cartao:hover img { transform:scale(1.045); } .link:hover { border-color:var(--destaque); color:var(--destaque); } }
 @media(max-width:900px) { .grade { grid-template-columns:repeat(2,minmax(0,1fr)); } .cabecalho-secao { align-items:start; flex-direction:column; } }
 @media(max-width:600px) { .secao { padding:72px 24px; } .grade { grid-template-columns:1fr; } }
-@media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .imagem img { transition:none; } }
+/* Animação de entrada ao rolar (diretiva [revelar]) */
+.revelar { opacity:0; transform:translate3d(0,36px,0);
+  transition:opacity 1000ms var(--suave) var(--atraso,0ms), transform 1200ms var(--suave) var(--atraso,0ms); }
+.revelar.visivel { opacity:1; transform:none; }
+.sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; } .imagem img { transition:none; }
+  .revelar { opacity:1; transform:none; transition:none; }
+}

@@ -1,20 +1,42 @@
 :host { display:block; }
-header { height:80px; display:grid; place-items:center; background:#000; }
-nav { display:flex; gap:30px; }
-a { position:relative; padding:8px 0; color:#bbb; text-decoration:none; }
-.janela { display:block; position:relative; overflow:hidden; }
-.original,.copia { display:block; transition:transform 650ms cubic-bezier(.22,1,.36,1); }
-.copia { position:absolute; inset:0; transform:translateY(110%); color:white; }
-a::after { content:''; position:absolute; bottom:2px; left:0; width:100%; height:1px; background:white; transform:scaleX(0); transform-origin:left; transition:transform 550ms ease; }
-a:focus-visible::after { transform:scaleX(1); }
-a:focus-visible .original { transform:translateY(-110%); }
-a:focus-visible .copia { transform:translateY(0); }
-@media (hover:hover) {
-  a:hover::after { transform:scaleX(1); }
-  a:hover .original { transform:translateY(-110%); }
-  a:hover .copia { transform:translateY(0); }
+header {
+  position:fixed; inset:0 0 auto; z-index:40; height:80px; isolation:isolate;
+  display:flex; align-items:center; justify-content:space-between; gap:24px; padding:0 max(4vw,20px);
+  background:color-mix(in srgb, var(--fundo) 90%, transparent); backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--borda);
+  transition:background-color 500ms ease, border-color 500ms ease;
 }
-@media (prefers-reduced-motion:reduce) { .original,.copia,a::after { transition:none; } }
+/* Sobre a foto: texto claro e um degradê leve para dar leitura. */
+header::before { content:''; position:absolute; inset:0 0 -60px; z-index:-1; pointer-events:none;
+  background:linear-gradient(rgba(4,7,14,.55), transparent); opacity:0; transition:opacity 500ms ease; }
+header.transparente { background:transparent; backdrop-filter:none; border-color:transparent;
+  --texto:#ffffff; --texto-suave:rgba(255,255,255,.82); }
+header.transparente::before { opacity:1; }
 
-a.ativo { color:white; }
-a.ativo::after { transform:scaleX(1); }
+.marca { font-family:var(--fonte-titulo); font-size:17px; font-weight:300; text-transform:uppercase; letter-spacing:.16em; color:var(--texto); white-space:nowrap; }
+.marca strong { font-weight:700; }
+
+nav { display:flex; gap:34px; }
+nav a { position:relative; padding:8px 0; color:var(--texto-suave); font-family:var(--fonte-titulo); font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:.14em; }
+.janela { display:block; position:relative; overflow:hidden; }
+.original,.copia { display:block; transition:transform 650ms var(--suave); }
+.copia { position:absolute; inset:0; transform:translateY(110%); color:var(--texto); }
+nav a::after { content:''; position:absolute; bottom:2px; left:0; width:100%; height:1px; background:var(--destaque); transform:scaleX(0); transform-origin:left; transition:transform 550ms ease; }
+nav a:focus-visible::after { transform:scaleX(1); }
+nav a:focus-visible .original { transform:translateY(-110%); }
+nav a:focus-visible .copia { transform:translateY(0); }
+@media (hover:hover) {
+  nav a:hover::after { transform:scaleX(1); }
+  nav a:hover .original { transform:translateY(-110%); }
+  nav a:hover .copia { transform:translateY(0); }
+}
+nav a.ativo { color:var(--texto); }
+nav a.ativo::after { transform:scaleX(1); }
+
+@media (max-width:560px) {
+  header { gap:12px; }
+  .marca { font-size:13px; letter-spacing:.1em; }
+  nav { gap:16px; }
+  nav a { font-size:11px; letter-spacing:.08em; }
+}
+@media (prefers-reduced-motion:reduce) { .original,.copia,nav a::after,header,header::before { transition:none; } }

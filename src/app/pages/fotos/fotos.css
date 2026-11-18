@@ -11,7 +11,7 @@ h1 {
   margin: 35px 0;
   font-size: clamp(64px, 10vw, 144px);
   line-height: 1;
-  letter-spacing: -0.07em;
+  letter-spacing: -0.03em;
   font-weight: 500;
 }
 
@@ -26,7 +26,7 @@ h1 {
   flex-wrap: wrap;
   gap: 12px 28px;
   margin: 28px 0 36px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--borda);
 }
 
 .filtros button {
@@ -34,7 +34,7 @@ h1 {
   padding: 12px 0;
   border: 0;
   background: transparent;
-  color: #999;
+  color: var(--texto-mudo);
   cursor: pointer;
   transition: color 400ms ease;
 }
@@ -46,7 +46,7 @@ h1 {
   bottom: -1px;
   left: 0;
   height: 1px;
-  background: white;
+  background: var(--destaque);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 550ms ease;
@@ -54,7 +54,7 @@ h1 {
 
 .filtros button:hover,
 .filtros button.ativo {
-  color: white;
+  color: var(--texto);
 }
 
 .filtros button:hover::after,
@@ -98,7 +98,7 @@ h1 {
 
 .descricao-projeto dt {
   margin-bottom: 8px;
-  color: #888;
+  color: var(--texto-mudo);
   font-size: 12px;
 }
 
@@ -109,7 +109,7 @@ h1 {
 
 .quantidade {
   margin: 0 0 24px;
-  color: #888;
+  color: var(--texto-mudo);
   font-size: 12px;
 }
 
@@ -128,7 +128,7 @@ h1 {
   overflow: hidden;
   break-inside: avoid;
   border: 0;
-  background: #111;
+  background: var(--superficie);
   cursor: zoom-in;
 }
 
@@ -142,7 +142,7 @@ h1 {
 }
 
 .foto:focus-visible {
-  outline: 2px solid white;
+  outline: 2px solid var(--destaque);
   outline-offset: 5px;
 }
 
