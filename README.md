@@ -1,59 +1,59 @@
-# FritschePhotos
+# Fritsche Photos
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.8.
+Portfólio do fotógrafo Victor (Fritz). Site em Angular publicado no GitHub Pages:
+https://garciaa43.github.io/fritsche-photos/
 
-## Development server
+## Adicionar ou trocar fotos
 
-To start a local development server, run:
+Os **originais ficam fora do projeto**, na pasta `fritsche-originais`, ao lado
+desta pasta (na Área de Trabalho). Eles nunca vão para o Git.
 
-```bash
-ng serve
-```
+1. Crie uma subpasta por álbum dentro de `fritsche-originais`. Número (ordem) e
+   data são opcionais:
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+   ```
+   fritsche-originais/
+     01 — Trackside — 2025-05-10/
+     20 — Casamento Ana e João — 2026-12-01/
+     Skate na Pista X/
+   ```
 
-## Code scaffolding
+2. Copie as fotos (JPG ou PNG) para a pasta do álbum. Pode ter subpastas.
+3. Rode:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+   ```bash
+   npm run fotos
+   ```
 
-```bash
-ng generate component component-name
-```
+   Ele gera, para cada foto nova, uma miniatura (800 px) e uma versão grande
+   (2200 px) em `public/fotos/`, e atualiza a lista de álbuns. Fotos já
+   processadas são puladas, fotos repetidas entram uma vez só e fotos apagadas
+   dos originais saem do site.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Para usar outra pasta de originais: `npm run fotos -- "D:\Fotos do Fritz"`.
 
-```bash
-ng generate --help
-```
+Cada foto ocupa cerca de 400 KB no site. O GitHub Pages aceita até 1 GB, o que
+dá umas 2.400 fotos.
 
-## Building
+## Textos
 
-To build the project run:
+Tudo fica em `src/app/data/conteudo.ts`: Sobre, frases da página inicial, fotos
+da abertura e do mosaico (pelo nome do arquivo original), números do contador e
+local/descrição de cada álbum (em `ajustes`).
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+## Publicar
 
 ```bash
-ng e2e
+npm run publicar
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Gera o site e envia para a branch `gh-pages`. Em 1 ou 2 minutos o link é
+atualizado. Rode pelo cmd ou pelo terminal do VS Code.
 
-## Additional Resources
+## Desenvolvimento
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+npm start
+```
+
+Abre em `http://localhost:4200/`.

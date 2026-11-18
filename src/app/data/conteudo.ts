@@ -1,9 +1,10 @@
 import { ALBUNS_GERADOS } from './albuns.generated';
 import type { Album } from './modelos';
 
-// Ajustes permanentes: não são apagados quando o script atualiza as fotos.
+// Textos dos álbuns. A chave é o "slug" do álbum (nome da pasta em formato de
+// endereço, veja albuns.generated.ts). Não são apagados ao rodar "npm run fotos".
 const ajustes: Record<string, Partial<Album>> = {
-  // '14': { titulo: 'Portilho', local: 'Nome do local', descricao: 'Texto do ensaio.' },
+  // '14-portilho-2025-11-09': { local: 'Nome do local', descricao: 'Texto do ensaio.' },
 };
 export const ALBUNS: Album[] = ALBUNS_GERADOS.map(album => ({...album, ...ajustes[album.id]}));
 export const SOBRE = {
@@ -20,7 +21,7 @@ export const CONTATOS: {nome:string; url:string}[] = [
   // { nome: 'WhatsApp', url: 'https://wa.me/55DDDNUMERO' },
 ];
 
-// Página inicial — nomes de arquivo de public/images.
+// Página inicial — nomes dos arquivos originais (os mesmos da pasta fritsche-originais).
 export const INICIO = {
   // Fotos que trocam na abertura (tela cheia), escolhidas pelo Fritz. Prefira fotos horizontais.
   // Nome de arquivo = foto de public/images; caminho com "/" = arquivo avulso de public/.

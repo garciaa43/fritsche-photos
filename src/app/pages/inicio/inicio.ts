@@ -37,8 +37,9 @@ export class Inicio {
   alternarPausa() { this.pausado.update(p => !p); this.agendar(); }
 
   imagem(nome:string) {
-    const arquivo = ALBUNS.flatMap(album => album.fotos).find(foto =>
-      decodeURIComponent(foto.src.split('/').pop() ?? '') === nome);
-    return arquivo?.src ?? 'images/' + encodeURIComponent(nome);
+    // Procura pelo nome do arquivo original (ex.: '14 005.jpg') e usa a versão grande.
+    const foto = ALBUNS.flatMap(album => album.fotos).find(f => f.arquivo === nome);
+    if (!foto) console.warn('Foto não encontrada nos álbuns:', nome);
+    return foto?.src ?? '';
   }
 }

@@ -113,50 +113,7 @@ h1 {
   font-size: 12px;
 }
 
-/* Fotos com proporções originais */
-
-.mosaico {
-  columns: 3;
-  column-gap: 24px;
-}
-
-.foto {
-  display: block;
-  width: 100%;
-  margin: 0 0 24px;
-  padding: 0;
-  overflow: hidden;
-  break-inside: avoid;
-  border: 0;
-  background: var(--superficie);
-  cursor: zoom-in;
-}
-
-.foto img {
-  display: block;
-  width: 100%;
-  height: auto;
-  transition:
-    transform 800ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 500ms ease;
-}
-
-.foto:focus-visible {
-  outline: 2px solid var(--destaque);
-  outline-offset: 5px;
-}
-
-@media (hover: hover) {
-  .foto:hover img {
-    transform: scale(1.035);
-    opacity: 0.9;
-  }
-}
-
 @media (max-width: 1000px) {
-  .mosaico {
-    columns: 2;
-  }
 
   .descricao-projeto {
     grid-template-columns: 1fr;
@@ -165,9 +122,6 @@ h1 {
 }
 
 @media (max-width: 600px) {
-  .mosaico {
-    columns: 1;
-  }
 
   .filtros {
     gap: 8px 20px;
@@ -179,7 +133,6 @@ h1 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .foto img,
   .filtros button,
   .filtros button::after {
     transition: none;

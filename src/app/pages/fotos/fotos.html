@@ -56,28 +56,10 @@
     {{ fotosVisiveis().length }} fotografias
   </p>
 
-  <div class="mosaico">
-    @for (foto of fotosVisiveis(); track foto.src; let i = $index) {
-      <button
-        type="button"
-        class="foto"
-        [revelar]="(i % 3) * 90"
-        (click)="visor.abrir(fotosVisiveis(), i)"
-        [attr.aria-label]="'Ampliar ' + foto.alt"
-      >
-        <img
-          [src]="foto.src"
-          [alt]="foto.alt"
-          loading="lazy"
-          decoding="async"
-        />
-      </button>
-    } @empty {
-      <p class="texto">
-        Nenhuma fotografia disponível neste projeto.
-      </p>
-    }
-  </div>
+  @if (fotosVisiveis().length) {
+    <app-galeria [fotos]="fotosVisiveis()" />
+  } @else {
+    <p class="texto">Nenhuma fotografia disponível neste projeto.</p>
+  }
 </section>
 
-<app-lightbox #visor />

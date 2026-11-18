@@ -2,12 +2,11 @@ import { Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { ALBUNS } from '../../data/conteudo';
-import { Lightbox } from '../../components/lightbox/lightbox';
-import { Revelar } from '../../diretivas/rolagem';
+import { Galeria } from '../../components/galeria/galeria';
 
 @Component({
   selector: 'app-fotos',
-  imports: [RouterLink, Lightbox, Revelar],
+  imports: [RouterLink, Galeria],
   templateUrl: './fotos.html',
   styleUrl: './fotos.css',
 })
