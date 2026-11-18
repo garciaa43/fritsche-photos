@@ -20,8 +20,9 @@ export const CONTATOS: {nome:string; url:string}[] = [
 
 // Página inicial — nomes de arquivo de public/images.
 export const INICIO = {
-  // Fotos que trocam na abertura (tela cheia). Prefira fotos horizontais.
-  abertura: ['07 024.jpg', '08 014.jpg', '01 008 (Trackside).jpg'],
+  // Fotos que trocam na abertura (tela cheia), escolhidas pelo Fritz. Prefira fotos horizontais.
+  // Nome de arquivo = foto de public/images; caminho com "/" = arquivo avulso de public/.
+  abertura: ['14 005.jpg', 'abertura/casal.jpg', '19 025 (Hiago) (1).jpg', 'abertura/ponte.jpg'],
   frase: 'Seu jeito. Sua história. Um novo olhar.',
   apresentacao: {
     titulo: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',

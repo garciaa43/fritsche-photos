@@ -16,7 +16,7 @@ export class Inicio {
   numeros = NUMEROS;
   destaques = ALBUNS.slice(0, 6);
 
-  abertura = INICIO.abertura.map(nome => this.imagem(nome));
+  abertura = INICIO.abertura.map(nome => nome.includes('/') ? encodeURI(nome) : this.imagem(nome));
   mosaico = INICIO.mosaico.map(nome => ({src:this.imagem(nome), alt:'Fotografia do portfólio — ' + nome}));
   fotoChamada = `url("${this.imagem(INICIO.chamada.foto)}")`;
 
