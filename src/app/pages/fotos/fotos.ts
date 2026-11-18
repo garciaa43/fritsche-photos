@@ -3,10 +3,11 @@ import { RouterLink } from '@angular/router';
 
 import { ALBUNS } from '../../data/conteudo';
 import { Lightbox } from '../../components/lightbox/lightbox';
+import { Revelar } from '../../diretivas/rolagem';
 
 @Component({
   selector: 'app-fotos',
-  imports: [RouterLink, Lightbox],
+  imports: [RouterLink, Lightbox, Revelar],
   templateUrl: './fotos.html',
   styleUrl: './fotos.css',
 })

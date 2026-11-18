@@ -1,34 +1,70 @@
 <section class="hero" aria-labelledby="titulo-inicio">
-  @for (faixa of faixas; track $index; let i = $index) {
-    @if (i === 1) {
-      <div class="intro">
-        <h1 id="titulo-inicio">Fritsche Photos</h1>
-        <p>Seu jeito. Sua história. Um novo olhar.</p>
-        <button class="pausa" (click)="pausado.set(!pausado())" [attr.aria-pressed]="pausado()">{{ pausado() ? 'Retomar movimento' : 'Pausar movimento' }}</button>
+  <div class="slides" aria-hidden="true">
+    @for (src of abertura; track src; let i = $index) {
+      <div class="slide" [class.ativo]="slide() === i">
+        <img [src]="src" alt="" decoding="async" [attr.fetchpriority]="i === 0 ? 'high' : 'low'" />
       </div>
     }
-    <div class="faixa">
-      <div class="trilho" [class.reverso]="i === 1" [class.pausado]="pausado()">
-        @for (copia of [0,1]; track copia) {
-          <div class="grupo" [attr.aria-hidden]="copia === 1 ? 'true' : null" [attr.inert]="copia === 1 ? '' : null">
-            @for (nome of faixa; track nome) {
-              <button class="foto-hero" (click)="visor.abrir(fotosHero(), indiceFoto(nome))" [attr.tabindex]="copia === 1 ? -1 : 0" [attr.aria-label]="'Ampliar fotografia ' + nome">
-                <img [src]="imagem(nome)" alt="" decoding="async" />
-              </button>
-            }
-          </div>
-        }
-      </div>
+  </div>
+  <div class="veu" aria-hidden="true"></div>
+
+  <div class="hero-texto">
+    <p class="hero-linha">Fotografia</p>
+    <h1 id="titulo-inicio">Fritsche <span>Photos</span></h1>
+    <p class="hero-frase">{{ inicio.frase }}</p>
+    <a class="botao" href="#trabalhos">Ver trabalhos</a>
+  </div>
+
+  <div class="hero-controles" [class.pausado]="pausado()">
+    @for (src of abertura; track src; let i = $index) {
+      <button class="indicador" [class.ativo]="slide() === i" (click)="irPara(i)"
+              [attr.aria-label]="'Mostrar foto ' + (i + 1)" [attr.aria-pressed]="slide() === i">
+        <span>0{{ i + 1 }}</span><i aria-hidden="true"></i>
+      </button>
+    }
+    <button class="pausa" (click)="alternarPausa()" [attr.aria-pressed]="pausado()">{{ pausado() ? 'Continuar' : 'Pausar' }}</button>
+  </div>
+
+  <a class="descer" href="#apresentacao"><span>Role</span><i aria-hidden="true"></i></a>
+</section>
+
+<section id="apresentacao" class="secao apresentacao" aria-labelledby="titulo-apresentacao">
+  <p class="eyebrow" revelar>Fritsche Photos</p>
+  <h2 id="titulo-apresentacao" [revelar]="100">{{ inicio.apresentacao.titulo }}</h2>
+  <p class="texto" [revelar]="200">{{ inicio.apresentacao.texto }}</p>
+</section>
+
+<section class="mosaico-inicio" aria-label="Fotografias em destaque">
+  @for (foto of mosaico; track foto.src; let i = $index) {
+    <button class="peca" [revelar]="(i % 3) * 120" (click)="visor.abrir(mosaico, i)" [attr.aria-label]="'Ampliar ' + foto.alt">
+      <img [src]="foto.src" alt="" loading="lazy" decoding="async" />
+    </button>
+  }
+</section>
+
+<section class="chamada" [style.background-image]="fotoChamada" aria-labelledby="titulo-chamada">
+  <div class="chamada-texto">
+    <p class="chamada-linha" revelar>{{ inicio.chamada.linha }}</p>
+    <h2 id="titulo-chamada" [revelar]="120">{{ inicio.chamada.titulo }}</h2>
+    <a class="botao" href="#contato" [revelar]="240">{{ inicio.chamada.botao }}</a>
+  </div>
+</section>
+
+<section class="numeros" aria-label="Números">
+  @for (n of numeros; track n.rotulo; let i = $index) {
+    <div class="numero" [revelar]="i * 150">
+      <h3>{{ n.rotulo }}</h3>
+      <p class="valor"><span class="sr-only">{{ n.valor }}</span><span aria-hidden="true" [contarAte]="n.valor">0</span></p>
     </div>
   }
-  <a class="descer" href="#sobre">Conheça o olhar por trás das fotos ↓</a>
 </section>
+
 <section id="sobre" class="secao sobre" aria-labelledby="titulo-sobre">
-  <div class="retrato">
+  <div class="retrato" revelar>
     @if (sobre.retrato) { <img [src]="sobre.retrato" alt="Retrato de Fritz, fotógrafo" loading="lazy" /> }
     @else { <span>Retrato do fotógrafo<br><small>Em breve</small></span> }
   </div>
-  <div>
+  <div [revelar]="150">
     <p class="eyebrow">01 / Sobre</p>
     <h2 id="titulo-sobre">{{ sobre.titulo }}</h2>
     <p class="texto">{{ sobre.texto }}</p>
@@ -36,10 +72,10 @@
   </div>
 </section>
 <section id="trabalhos" class="secao" aria-labelledby="titulo-trabalhos">
-  <div class="cabecalho-secao"><div><p class="eyebrow">02 / Seleção</p><h2 id="titulo-trabalhos">Histórias em imagens.</h2></div><a class="link" routerLink="/fotos">Ver todos os trabalhos ↗</a></div>
+  <div class="cabecalho-secao" revelar><div><p class="eyebrow">02 / Seleção</p><h2 id="titulo-trabalhos">Histórias em imagens.</h2></div><a class="link" routerLink="/fotos">Ver todos os trabalhos ↗</a></div>
   <div class="grade">
-    @for (album of destaques; track album.id) {
-      <a class="cartao" [routerLink]="['/fotos', album.slug]">
+    @for (album of destaques; track album.id; let i = $index) {
+      <a class="cartao" [revelar]="(i % 3) * 120" [routerLink]="['/fotos', album.slug]">
         <div class="imagem"><img [src]="album.capa" [alt]="album.titulo" loading="lazy" decoding="async" /></div>
         <div class="legenda"><h3>{{ album.titulo }}</h3><span>↗</span></div>
       </a>
@@ -47,8 +83,8 @@
   </div>
 </section>
 <section id="contato" class="secao contato" aria-labelledby="titulo-contato">
-  <p class="eyebrow">03 / Contato</p><h2 id="titulo-contato">Vamos contar<br>uma nova história?</h2>
-  <div class="contatos">
+  <p class="eyebrow" revelar>03 / Contato</p><h2 id="titulo-contato" [revelar]="100">Vamos contar<br>uma nova história?</h2>
+  <div class="contatos" [revelar]="200">
     @for (contato of contatos; track contato.nome) { <a class="link" [href]="contato.url">{{ contato.nome }} ↗</a> }
     @empty { <p class="texto">Os canais de contato serão disponibilizados em breve.</p> }
   </div>

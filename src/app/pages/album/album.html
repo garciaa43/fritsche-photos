@@ -8,7 +8,7 @@
     </header>
     <div class="mosaico">
       @for (foto of projeto.fotos; track foto.src; let i = $index) {
-        <button (click)="visor.abrir(projeto.fotos, i)" [attr.aria-label]="'Ampliar ' + foto.alt"><img [src]="foto.src" [alt]="foto.alt" loading="lazy" decoding="async" /></button>
+        <button [revelar]="(i % 3) * 90" (click)="visor.abrir(projeto.fotos, i)" [attr.aria-label]="'Ampliar ' + foto.alt"><img [src]="foto.src" [alt]="foto.alt" loading="lazy" decoding="async" /></button>
       }
     </div>
   } @else { <h1>Álbum não encontrado.</h1><p class="texto">Volte à galeria para explorar os trabalhos disponíveis.</p> }

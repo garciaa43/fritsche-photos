@@ -11,7 +11,7 @@ h1 {
   margin: 35px 0;
   font-size: clamp(64px, 10vw, 144px);
   line-height: 1;
-  letter-spacing: -0.07em;
+  letter-spacing: -0.03em;
   font-weight: 500;
 }
 

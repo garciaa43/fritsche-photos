@@ -1,4 +1,5 @@
-<header>
+<header [class.transparente]="transparente()">
+  <a class="marca" routerLink="/" (click)="topo()"><strong>Fritsche</strong> Photos</a>
   <nav aria-label="Navegação principal">
     @for (item of itens; track item.id) {
       <a routerLink="/" [fragment]="item.id" [class.ativo]="ativo(item.id)" [attr.aria-current]="ativo(item.id) ? 'location' : null">
