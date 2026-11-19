@@ -6,7 +6,21 @@ import type { Album } from './modelos';
 const ajustes: Record<string, Partial<Album>> = {
   // '14-portilho-2025-11-09': { local: 'Nome do local', descricao: 'Texto do ensaio.' },
 };
-export const ALBUNS: Album[] = ALBUNS_GERADOS.map(album => ({...album, ...ajustes[album.id]}));
+// Álbuns que ficam no meio da lista (em Trabalhos > Todos, nos filtros e na
+// seleção da página inicial), em vez de na ordem dos números das pastas.
+// Pedido do Fritz: Trackside não deve aparecer logo no começo.
+const NO_MEIO = ['01-trackside-2025-05-10'];
+
+function colocarNoMeio(albuns: Album[]) {
+  const meio = albuns.filter(a => NO_MEIO.includes(a.slug));
+  const resto = albuns.filter(a => !NO_MEIO.includes(a.slug));
+  const metade = albuns.reduce((soma, a) => soma + a.fotos.length, 0) / 2;
+  let soma = 0, i = 0;
+  while (i < resto.length && soma + resto[i].fotos.length <= metade) soma += resto[i++].fotos.length;
+  return [...resto.slice(0, i), ...meio, ...resto.slice(i)];
+}
+
+export const ALBUNS: Album[] = colocarNoMeio(ALBUNS_GERADOS.map(album => ({...album, ...ajustes[album.id]})));
 export const SOBRE = {
   // Resumo do texto "Victor: minha história na fotografia".
   nome: 'Victor',
@@ -15,11 +29,15 @@ export const SOBRE = {
   historia: 'Por indicação do irmão, começou como assistente do fotógrafo Norton José, em Florianópolis. Entre aniversários, festas de 15 anos e casamentos, passou da iluminação para a câmera e fez da fotografia sua profissão, com ensaios e eventos próprios, inclusive em outras cidades.',
   retrato: 'sobre/victor.jpg', // Arquivo em public/sobre/.
 };
-export const CONTATOS: {nome:string; url:string}[] = [
-  // { nome: 'Instagram', url: 'https://www.instagram.com/SEU_PERFIL/' },
-  // { nome: 'E-mail', url: 'mailto:SEU_EMAIL' },
-  // { nome: 'WhatsApp', url: 'https://wa.me/55DDDNUMERO' },
-];
+// Botões da seção Contato. Campo vazio = botão escondido.
+export const CONTATO = {
+  // Número com país e DDD, só dígitos. Ex.: '5548999998888'.
+  whatsapp: '554898676260',
+  // Mensagem que já aparece escrita quando a pessoa abre a conversa.
+  mensagem: 'Olá, Victor! Vi seu portfólio no site e gostaria de fazer um orçamento.',
+  // Usuário do Instagram profissional, sem o @.
+  instagram: 'fritsche_photos',
+};
 
 // Página inicial — nomes dos arquivos originais (os mesmos da pasta fritsche-originais).
 export const INICIO = {

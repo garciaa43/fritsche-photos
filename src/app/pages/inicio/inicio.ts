@@ -2,7 +2,7 @@ import { Component, DestroyRef, afterNextRender, inject, signal } from '@angular
 import { RouterLink } from '@angular/router';
 import { Lightbox } from '../../components/lightbox/lightbox';
 import { ContarAte, Revelar } from '../../diretivas/rolagem';
-import { ALBUNS, SOBRE, CONTATOS, INICIO, NUMEROS } from '../../data/conteudo';
+import { ALBUNS, SOBRE, CONTATO, INICIO, NUMEROS } from '../../data/conteudo';
 
 const INTERVALO = 6500; // ms entre uma foto e outra na abertura (igual ao CSS de .indicador)
 
@@ -12,7 +12,10 @@ const INTERVALO = 6500; // ms entre uma foto e outra na abertura (igual ao CSS d
 export class Inicio {
   inicio = INICIO;
   sobre = SOBRE;
-  contatos = CONTATOS;
+  private numero = CONTATO.whatsapp.replace(/\D/g, '');
+  arroba = CONTATO.instagram.trim().replace(/^@/, '');
+  zap = this.numero ? `https://wa.me/${this.numero}?text=${encodeURIComponent(CONTATO.mensagem)}` : '';
+  insta = this.arroba ? `https://www.instagram.com/${this.arroba}/` : '';
   numeros = NUMEROS;
   destaques = ALBUNS.slice(0, 6);
 

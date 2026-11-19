@@ -85,8 +85,19 @@
 <section id="contato" class="secao contato" aria-labelledby="titulo-contato">
   <p class="eyebrow" revelar>03 / Contato</p><h2 id="titulo-contato" [revelar]="100">Vamos contar<br>uma nova história?</h2>
   <div class="contatos" [revelar]="200">
-    @for (contato of contatos; track contato.nome) { <a class="link" [href]="contato.url">{{ contato.nome }} ↗</a> }
-    @empty { <p class="texto">Os canais de contato serão disponibilizados em breve.</p> }
+    @if (zap) {
+      <a class="canal principal" [href]="zap" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M9 8.5c0 3.6 2.9 6.5 6.5 6.5l1-1.6-2-1-1 .8a4 4 0 0 1-2.2-2.2l.8-1-1-2Z"/></svg>
+        <span>Chamar no WhatsApp</span>
+      </a>
+    }
+    @if (insta) {
+      <a class="canal" [href]="insta" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><path d="M17.5 6.5h.01"/></svg>
+        <span>@{{ arroba }} no Instagram</span>
+      </a>
+    }
+    @if (!zap && !insta) { <p class="texto">Os canais de contato serão disponibilizados em breve.</p> }
   </div>
 </section>
 <footer class="rodape"><a routerLink="/">Fritsche Photos</a><span>Fotografia e audiovisual.</span></footer>

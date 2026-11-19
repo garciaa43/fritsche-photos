@@ -83,7 +83,17 @@
 .retrato small { display:block; margin-top:10px; }
 .sobre h2 { font-size:clamp(36px,4.5vw,68px); }
 .contato h2 { max-width:950px; }
-.contatos { display:flex; flex-wrap:wrap; gap:30px; margin-top:40px; }
+.contatos { display:flex; flex-wrap:wrap; gap:16px; margin-top:44px; }
+.canal { display:inline-flex; align-items:center; gap:12px; padding:17px 28px; border:1px solid var(--borda-forte);
+  font-family:var(--fonte-titulo); font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.18em;
+  transition:background-color 400ms ease, border-color 400ms ease, color 400ms ease; }
+.canal svg { width:20px; height:20px; flex:none; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+.canal span { text-transform:none; letter-spacing:.06em; font-size:14px; }
+.canal.principal { background:var(--destaque); border-color:var(--destaque); color:var(--fundo); }
+@media (hover:hover) {
+  .canal:hover { border-color:var(--destaque); color:var(--destaque); }
+  .canal.principal:hover { background:transparent; color:var(--destaque); }
+}
 .rodape { border-top:1px solid var(--borda); padding:28px max(6vw,24px); display:flex; justify-content:space-between; gap:20px; color:var(--texto-mudo); font-size:12px; }
 
 @keyframes subir { from { opacity:0; transform:translateY(34px); } to { opacity:1; transform:none; } }

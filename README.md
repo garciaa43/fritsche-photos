@@ -38,7 +38,8 @@ dá umas 2.400 fotos.
 ## Textos
 
 Tudo fica em `src/app/data/conteudo.ts`: Sobre, frases da página inicial, fotos
-da abertura e do mosaico (pelo nome do arquivo original), números do contador e
+da abertura e do mosaico (pelo nome do arquivo original), WhatsApp, mensagem
+pronta e Instagram (em `CONTATO`), números do contador e
 local/descrição de cada álbum (em `ajustes`).
 
 ## Publicar

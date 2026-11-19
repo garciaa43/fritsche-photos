@@ -75,16 +75,15 @@ export class Galeria {
 
     // Carrega o próximo lote quando o fim da grade se aproxima da tela.
     const io = new IntersectionObserver(([e]) => { if (e?.isIntersecting) this.carregarMais(); }, { rootMargin: '800px 0px' });
-    let quadro = 0;
     effect(() => {
       const el = this.fim()?.nativeElement;
       this.limite();
+      // Observa de novo a cada lote: o navegador avisa outra vez se o fim
+      // continuar visível (tela grande ou rolagem rápida).
       io.disconnect();
-      cancelAnimationFrame(quadro);
-      // Observa de novo a cada lote, para disparar outra vez se o fim continuar visível.
-      if (el) quadro = requestAnimationFrame(() => io.observe(el));
+      if (el) io.observe(el);
     });
-    inject(DestroyRef).onDestroy(() => { io.disconnect(); cancelAnimationFrame(quadro); window.removeEventListener('resize', aoRedimensionar); });
+    inject(DestroyRef).onDestroy(() => { io.disconnect(); window.removeEventListener('resize', aoRedimensionar); });
   }
 
   carregarMais() { this.limite.update(n => Math.min(n + POR_VEZ, this.fotos().length)); }
